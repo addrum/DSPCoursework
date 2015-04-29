@@ -1,0 +1,17 @@
+﻿  VertexBufferObjectIndexed.cpp
+  VertexBufferObject.cpp
+  Texture.cpp
+  Sphere.cpp
+  Skybox.cpp
+  Shaders.cpp
+  Plane.cpp
+  OpenAssetImportMesh.cpp
+  MatrixStack.cpp
+  HighResolutionTimer.cpp
+  GameWindow.cpp
+  Game.cpp
+  FreeTypeFont.cpp
+  Camera.cpp
+  Audio.cpp
+  Generating Code...
+  OpenGLTemplate.vcxproj -> C:\Users\Adam\Downloads\Template\Debug\OpenGLTemplate.exe
