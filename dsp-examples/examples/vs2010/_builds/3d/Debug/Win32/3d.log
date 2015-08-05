@@ -1,8 +1,18 @@
-﻿  3d.cpp
-  common_platform.cpp
-  common.cpp
-  Generating Code...
-  3d.vcxproj -> C:\Users\Adam\Downloads\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\3dL.exe
-          1 file(s) copied.
-          1 file(s) copied.
-          1 file(s) copied.
+﻿Build started 8/3/2015 5:54:15 PM.
+     1>Project "C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\3d.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\..\inc /Zi /nologo /W4 /WX- /Od /Oy- /D _CONSOLE /D WIN32 /D _DEBUG /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\\" /Fd"C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\common.cpp ..\common_platform.cpp ..\3d.cpp
+         3d.cpp
+         common_platform.cpp
+         common.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\3dL.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:..\..\lib fmodL_vc.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\3dL.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\3dL.lib" /MACHINE:X86 "C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\common.obj"
+         "C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\common_platform.obj"
+         "C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\_builds\3d\Debug\Win32\3d.obj"
+     1>LINK : fatal error LNK1181: cannot open input file 'fmodL_vc.lib'
+     1>Done Building Project "C:\Users\adams_000\Documents\Visual Studio 2013\Projects\DSPCoursework\dsp-examples\examples\vs2010\3d.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.94
