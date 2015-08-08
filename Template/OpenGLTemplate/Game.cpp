@@ -276,8 +276,16 @@ void Game::Render()
 // Update method runs repeatedly with the Render method
 void Game::Update() 
 {
+	glm::vec3 previousPosition = m_pCamera->GetPosition();
 	// Update the camera using the amount of time that has elapsed to avoid framerate dependent motion
 	m_pCamera->Update(m_dt);
+
+	glm::vec3 cameraPosition = m_pCamera->GetPosition();
+	glm::vec3 dir = glm::normalize(m_pCamera->GetPosition() - m_pCamera->GetView());
+	glm::vec3 up = m_pCamera->GetUpVector();
+	glm::vec3 velocity = previousPosition - cameraPosition;
+
+	m_pAudio->SetCameraPositionInfo(cameraPosition, velocity, up, dir);
 
 	m_pAudio->Update();
 }

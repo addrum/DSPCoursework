@@ -2,6 +2,7 @@
 #include <windows.h>									// Header File For The Windows Library
 #include "./include/fmod/fmod.hpp"
 #include "./include/fmod/fmod_errors.h"
+#include "include/glm/glm.hpp"
 
 
 class CAudio
@@ -15,12 +16,12 @@ public:
 	bool LoadMusicStream(char *filename);
 	bool PlayMusicStream();
 	void Update();
+	void SetCameraPositionInfo(glm::vec3 lP, glm::vec3 lV, glm::vec3 uV, glm::vec3 vV);
 
 private:
 		
 
 	void FmodErrorCheck(FMOD_RESULT result);
-
 
 	FMOD_RESULT result;
 	FMOD::System* m_pFmodSystem;	// the global variable for talking to FMOD
@@ -31,5 +32,5 @@ private:
 	FMOD::Channel* m_pMusicChannel;
 
 	boolean m_initialised;
-
+	FMOD_VECTOR listenerPosition, listenerVelocity, upVector, viewVector;
 };
