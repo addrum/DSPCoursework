@@ -1,7 +1,6 @@
 #include "Audio.h"
 
 #pragma comment(lib, "lib/fmodex_vc.lib")
-#include "include/glm/glm.hpp"
 
 CAudio::CAudio()
 {
@@ -35,8 +34,6 @@ bool CAudio::Initialise()
 	if (result != FMOD_OK)
 		return false;
 
-	m_pFmodSystem->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &viewVector, &upVector);
-
 	m_initialised = true;
 
 	return true;
@@ -53,7 +50,11 @@ bool CAudio::LoadEventSound(char *filename)
 	FmodErrorCheck(result);
 	if (result != FMOD_OK) 
 		return false;
-	m_pMusicChannel->set3DMinMaxDistance(0.5f, 5000.0f);
+
+	result = m_pEventSound->set3DMinMaxDistance(0.5f, 5000.0f);
+	FmodErrorCheck(result);
+	if (result != FMOD_OK)
+		return false;
 
 	return true;
 }
@@ -64,15 +65,20 @@ bool CAudio::PlayEventSound()
 	if (!m_initialised)
 		return false;
 
-	FMOD_VECTOR channelPosition = { 0.0f, 0.0f, 0.0f };
-	FMOD_VECTOR channelVelocity = { 0.0f, 0.0f, 0.0f };
-
-	result = m_pFmodSystem->playSound(FMOD_CHANNEL_FREE, m_pEventSound, false, &m_pMusicChannel);
+	result = m_pFmodSystem->playSound(FMOD_CHANNEL_FREE, m_pEventSound, false, &m_pEventChannel);
 	FmodErrorCheck(result);
 	if (result != FMOD_OK)
 		return false;
 
-	result = m_pMusicChannel->set3DAttributes(&channelPosition, &channelVelocity);
+	FMOD_VECTOR channelPosition = { 0.0f, 0.0f, 0.0f };
+	FMOD_VECTOR channelVelocity = { 0.0f, 0.0f, 0.0f };
+
+	result = m_pEventChannel->set3DAttributes(&channelPosition, &channelVelocity);
+	FmodErrorCheck(result);
+	if (result != FMOD_OK)
+		return false;
+
+	result = m_pEventChannel->setMode(FMOD_LOOP_NORMAL);
 	FmodErrorCheck(result);
 	if (result != FMOD_OK)
 		return false;
@@ -91,17 +97,13 @@ bool CAudio::LoadMusicStream(char *filename)
 	if (!m_initialised)
 		return false;
 
-	result = m_pFmodSystem->createStream(filename, FMOD_3D, 0, &m_pMusic);
+	result = m_pFmodSystem->createStream(filename, FMOD_SOFTWARE | FMOD_LOOP_NORMAL, 0, &m_pMusic);
 	FmodErrorCheck(result);
 
 	if (result != FMOD_OK) 
 		return false;
 
-	m_pMusicChannel->set3DMinMaxDistance(0.5f, 5000.0f);
-
 	return true;
-	
-
 }
 
 // Play a music stream
@@ -110,16 +112,7 @@ bool CAudio::PlayMusicStream()
 	if (!m_initialised)
 		return false;
 
-	FMOD_VECTOR channelPosition = { 0.0f, 0.0f, 0.0f };
-	FMOD_VECTOR channelVelocity = { 0.0f, 0.0f, 0.0f };
-
 	result = m_pFmodSystem->playSound(FMOD_CHANNEL_FREE, m_pMusic, false, &m_pMusicChannel);
-	FmodErrorCheck(result);
-
-	if (result != FMOD_OK)
-		return false;
-
-	result = m_pMusicChannel->set3DAttributes(&channelPosition, &channelVelocity);
 	FmodErrorCheck(result);
 	if (result != FMOD_OK)
 		return false;
@@ -137,7 +130,18 @@ void CAudio::FmodErrorCheck(FMOD_RESULT result)
 	}
 }
 
+bool CAudio::CreateListener(const FMOD_VECTOR* listenerPos, const FMOD_VECTOR* listenerVel, const FMOD_VECTOR* listenerFor, const FMOD_VECTOR* listenerUp)
+{
+	result = m_pFmodSystem->set3DListenerAttributes(0, listenerPos, listenerVel, listenerFor, listenerUp);
+	FmodErrorCheck(result);
+	if (result != FMOD_OK)
+		return false;
 
+	return true;
+}
+
+
+// Initial attempt at setting FMOD vectors
 void CAudio::SetCameraPositionInfo(glm::vec3 lP, glm::vec3 lV, glm::vec3 uV, glm::vec3 vV)
 {
 	listenerPosition.x = lP.x;

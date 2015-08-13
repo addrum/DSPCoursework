@@ -162,8 +162,8 @@ void Game::Initialise()
 
 	// Initialise audio and play background music
 	m_pAudio->Initialise();
-	m_pAudio->LoadEventSound("Resources\\Audio\\Boing.wav");					// Royalty free sound from freesound.org
-	m_pAudio->LoadMusicStream("Resources\\Audio\\DST-Garote.mp3");	// Royalty free music from http://www.nosoapradio.us/
+	m_pAudio->LoadEventSound("Resources\\Audio\\DST-Garote.mp3");					// Royalty free sound from freesound.org
+	//m_pAudio->LoadMusicStream("Resources\\Audio\\DST-Garote.mp3");	// Royalty free music from http://www.nosoapradio.us/
 	m_pAudio->PlayMusicStream();
 }
 
@@ -276,16 +276,37 @@ void Game::Render()
 // Update method runs repeatedly with the Render method
 void Game::Update() 
 {
-	glm::vec3 previousPosition = m_pCamera->GetPosition();
 	// Update the camera using the amount of time that has elapsed to avoid framerate dependent motion
 	m_pCamera->Update(m_dt);
 
 	glm::vec3 cameraPosition = m_pCamera->GetPosition();
 	glm::vec3 dir = glm::normalize(m_pCamera->GetPosition() - m_pCamera->GetView());
 	glm::vec3 up = m_pCamera->GetUpVector();
-	glm::vec3 velocity = previousPosition - cameraPosition;
+	// here
+	glm::vec3 velocity = dir * m_pCamera->GetSpeed();
+	glm::vec3 view = m_pCamera->GetView();
 
-	m_pAudio->SetCameraPositionInfo(cameraPosition, velocity, up, dir);
+	// set the fmod vectors
+	listenerPosition.x = cameraPosition.x;
+	listenerPosition.y = cameraPosition.y;
+	listenerPosition.z = cameraPosition.z;
+
+	listenerVelocity.x = dir.x * m_pCamera->GetSpeed();
+	listenerVelocity.y = dir.y * m_pCamera->GetSpeed();
+	listenerVelocity.z = dir.z * m_pCamera->GetSpeed();
+
+	upVector.x = up.x;
+	upVector.y = up.y;
+	upVector.z = up.z;
+
+	viewVector.x = m_pCamera->GetView().x;
+	viewVector.y = m_pCamera->GetView().y;
+	viewVector.z = m_pCamera->GetView().z;
+
+	// create listener and pass vectors to it so FMOD can set appropriate properties
+	m_pAudio->CreateListener(&listenerPosition, &listenerVelocity, &upVector, &viewVector);
+
+	//m_pAudio->SetCameraPositionInfo(cameraPosition, velocity, up, dir);
 
 	m_pAudio->Update();
 }

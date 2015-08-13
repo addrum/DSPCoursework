@@ -160,6 +160,13 @@ glm::mat4* CCamera::GetOrthographicProjectionMatrix()
 	return &m_orthographicProjectionMatrix;
 }
 
+// Return the camera's speed
+float CCamera::GetSpeed() const
+{
+	return m_speed;
+}
+
+
 // Set the camera perspective projection matrix to produce a view frustum with a specific field of view, aspect ratio, 
 // and near / far clipping planes
 void CCamera::SetPerspectiveProjectionMatrix(float fov, float aspectRatio, float nearClippingPlane, float farClippingPlane)

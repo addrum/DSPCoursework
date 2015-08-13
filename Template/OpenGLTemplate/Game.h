@@ -2,6 +2,7 @@
 
 #include "Common.h"
 #include "GameWindow.h"
+#include "include/fmod/fmod.h"
 
 // Classes used in game.  For a new class, declare it here and provide a pointer to an object of this class below.  Then, in Game.cpp, 
 // include the header.  In the Game constructor, set the pointer to NULL and in Game::Initialise, create a new object.  Don't forget to 
@@ -18,7 +19,6 @@ class COpenAssetImportMesh;
 class CAudio;
 
 class Game {
-private:
 	// Three main methods used in the game.  Initialise runs once, while Update and Render run repeatedly in the game loop.
 	void Initialise();
 	void Update();
@@ -41,7 +41,6 @@ private:
 	int m_framesPerSecond;
 	bool m_appActive;
 
-
 public:
 	Game();
 	~Game();
@@ -49,6 +48,9 @@ public:
 	LRESULT ProcessEvents(HWND window,UINT message, WPARAM w_param, LPARAM l_param);
 	void SetHinstance(HINSTANCE hinstance);
 	WPARAM Execute();
+
+	// vectors for the various elements of the listener that FMOD needs
+	FMOD_VECTOR listenerPosition, listenerVelocity, upVector, viewVector;
 
 private:
 	static const int FPS = 60;

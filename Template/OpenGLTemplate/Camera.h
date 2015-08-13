@@ -14,6 +14,7 @@ public:
 	glm::vec3 GetStrafeVector() const;				// Gets the camera strafe vector
 	glm::mat4* GetPerspectiveProjectionMatrix();	// Gets the camera perspective projection matrix
 	glm::mat4* GetOrthographicProjectionMatrix();	// Gets the camera orthographic projection matrix
+	float GetSpeed() const;
 	glm::mat4 GetViewMatrix();						// Gets the camera view matrix - note this is not stored in the class but returned using glm::lookAt() in GetViewMatrix()
 
 	// Set the camera position, viewpoint, and up vector
